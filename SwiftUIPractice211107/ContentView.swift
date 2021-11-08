@@ -122,18 +122,43 @@ struct View3: View {
 
 /// Case4
 struct View4: View {
+  @State private var devPriority: CGFloat = 1.0
+  @State private var techPriority: CGFloat = 1.0
+  @State private var iePriority: CGFloat = 1.0
+  
   var body: some View {
     HStack {
       Capsule()
         .fill(Color.orange)
         .overlay(Text("Dev"))
+        .frame(minWidth: 20)
+        .layoutPriority(devPriority)
+        .animation(.easeInOut, value: devPriority)
       Capsule()
         .fill(Color.blue)
         .overlay(Text("Tech"))
+        .frame(minWidth: 20)
+        .layoutPriority(techPriority)
+        .animation(.easeInOut, value: techPriority)
       Capsule()
         .fill(Color.teal)
         .overlay(Text("ie"))
+        .frame(minWidth: 20)
+        .layoutPriority(iePriority)
+        .animation(.easeInOut, value: iePriority)
     }
     .frame(maxHeight: 200)
+    
+    ControlGroup {
+      Button("Dev") {
+        devPriority = devPriority == 1.0 ? 2.0 : 1.0
+      }
+      Button("Tech") {
+        techPriority = techPriority == 1.0 ? 2.0 : 1.0
+      }
+      Button("ie") {
+        iePriority = iePriority == 1.0 ? 2.0 : 1.0
+      }
+    }
   }
 }
